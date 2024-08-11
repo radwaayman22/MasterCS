@@ -24,9 +24,9 @@ ssl._create_default_https_context = ssl._create_unverified_context
 def parse_arguments():
     parser = argparse.ArgumentParser(description="Process YouTube channels for audio and captions.")
     parser.add_argument('--urls_file', type=str, default='channels.txt', help='File containing YouTube channel URLs')
-    parser.add_argument('--hub_dataset_name', type=str, default='AhmedBoin/Arabic-ASR', help='Base name of the dataset on Hugging Face Hub')
+    parser.add_argument('--hub_dataset_name', type=str, default='<USERNAME/REPO>', help='Base name of the dataset on Hugging Face Hub')
     parser.add_argument('--private', action='store_true', help='Push dataset as private')
-    parser.add_argument('--hf_token', type=str, default='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', help='Hugging Face authentication token')
+    parser.add_argument('--hf_token', type=str, default='<HUGGINGFACE_API_TOKEN>', help='Hugging Face authentication token')
     return parser.parse_args()
 
 args = parse_arguments()
@@ -185,7 +185,7 @@ huggingface_hub.login(token=args.hf_token)
 
 os.makedirs("audio", exist_ok=True)
 
-batch_size = 10  # Number of records to process in one batch
+batch_size = 100_000  # Number of records to process in one batch
 batch_data = {"audio": [], "text": [], "manual": []}
 parquet_counter = 0
 repo_index = 1
